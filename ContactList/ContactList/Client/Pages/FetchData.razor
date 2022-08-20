@@ -1,5 +1,4 @@
 ﻿@page "/fetchdata"
-@using ContactList.Shared
 @inject HttpClient Http
 
 <PageTitle>Weather forecast</PageTitle>
@@ -14,6 +13,8 @@
 }
 else
 {
+    <Contacts></Contacts>
+
     <table class="table">
         <thead>
             <tr>

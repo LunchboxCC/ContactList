@@ -1,0 +1,28 @@
+﻿<ul>
+    @foreach (var contact in AllContacts)
+    {
+        <li>@contact.FirstName @contact.LastName</li>
+    }
+</ul>
+
+@code {
+    private static List<Contact> AllContacts = new List<Contact>()
+    {
+        new Contact()
+        {
+            ContactId = 1,
+            FirstName = "Ramza",
+            LastName = "Beoulve",
+            EmailAddress = "beoulve.iv@gmail.com",
+            PhoneNumber = string.Empty
+        },
+        new Contact()
+        {
+            ContactId = 2,
+            FirstName = "Agrias",
+            LastName = "Oaks",
+            EmailAddress = "agrias.oaks@gmail.com",
+            PhoneNumber = "+44 128 478 364"
+        }
+    };
+}
