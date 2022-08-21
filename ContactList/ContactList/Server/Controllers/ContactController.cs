@@ -18,5 +18,15 @@ namespace ContactList.Server.Controllers
         {
             return Ok(_service.GetAllContacts());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetContactById(int id)
+        {
+            var contact = _service.GetContactById(id);
+            if (contact == null)
+                return NotFound("No such contact found");
+
+            return Ok(contact);
+        }
     }
 }

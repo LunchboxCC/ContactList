@@ -1,0 +1,14 @@
+﻿@page "/contacts/{id:int}"
+@inject IContactClientService ContactClientService
+
+<h3>Edit Contact</h3>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    Contact contact = new Contact();
+
+
+}

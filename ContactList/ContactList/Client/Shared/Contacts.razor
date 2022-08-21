@@ -1,32 +1,41 @@
-﻿@inject HttpClient Http
+﻿@inject IContactClientService Service
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email address</th>
-            <th>Phone number</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var contact in AllContacts)
-        {
+@if (AllContacts.Count == 0) 
+{
+    <p>No contacts to show here</p>
+}
+else 
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@contact.FirstName @contact.LastName</td>
-                <td>@contact.EmailAddress</td>
-                <td>@contact.PhoneNumber</td>
+                <th>Name</th>
+                <th>Email address</th>
+                <th>Phone number</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var contact in AllContacts)
+            {
+                <tr>
+                    <td>@contact.FirstName @contact.LastName</td>
+                    <td>@contact.EmailAddress</td>
+                    <td>@contact.PhoneNumber</td>
+                    <td>
+                        <a href=@($"contacts/{contact.ContactId}")>Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 @code {
     private static List<Contact> AllContacts = new List<Contact>();
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetFromJsonAsync<List<Contact>>("api/contacts");
-        if (result != null)
-            AllContacts = result;
+        AllContacts = await Service.GetAllContacts();
     }
 }

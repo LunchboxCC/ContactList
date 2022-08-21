@@ -14,4 +14,9 @@ public class ContactService : IContactService
     {
         return _context.Contacts.ToList();
     }
+
+    public Contact? GetContactById(int id)
+    {
+        return _context.Contacts.FirstOrDefault(c => c.ContactId == id);
+    }
 }
