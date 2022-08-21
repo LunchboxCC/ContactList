@@ -1,0 +1,22 @@
+﻿@page
+@model ContactListRazorViews.Models.Contact
+
+<div class="text-center">
+    <h1 class="display-4">Edit contact</h1>
+
+    <form asp-action="EditContact" method="post">
+        <label for="FirstName">First name:</label>
+        <input type="text" name="FirstName" value="@Model.FirstName" />
+
+        <label for="LastName">Last name:</label>
+        <input type="text" name="LastName" />        
+        
+        <label for="EmailAddress">Email Address:</label>
+        <input type="text" name="EmailAddress" value="@Model.EmailAddress" />        
+        
+        <label for="PhoneNumber">Phone number:</label>
+        <input type="text" name="PhoneNumber" />
+
+        <input type="submit" />
+    </form>
+</div>

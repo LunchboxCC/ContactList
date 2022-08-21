@@ -17,5 +17,10 @@ namespace ContactListRazorViews.Services
         {
             return _context.Contacts.ToList();
         }
+
+        public Contact? GetContactById(int contactId)
+        {
+            return _context.Contacts.FirstOrDefault(c => c.ContactId == contactId);
+        }
     }
 }
