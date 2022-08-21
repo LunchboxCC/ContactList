@@ -28,5 +28,21 @@ namespace ContactList.Server.Controllers
 
             return Ok(contact);
         }
+
+        [HttpPost("add")]
+        public IActionResult PostNewContact(Contact contact)
+        {
+            var result = _service.AddNewContact(contact);
+
+            return result == true ? Ok("Contact added") : BadRequest("Contact not added");
+        }
+
+        [HttpPost("edit")]
+        public IActionResult PostEditContact(Contact contact)
+        {
+            var result = _service.EditContact(contact);
+
+            return result == true ? Ok("Contact edited") : BadRequest("Contact not edited");
+        }
     }
 }

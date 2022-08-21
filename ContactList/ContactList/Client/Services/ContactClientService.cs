@@ -24,16 +24,29 @@ namespace ContactList.Client.Services
             return result;
         }
 
-        public async Task<Contact> GetContactById(int id)
+        public async Task<Contact> GetSingleContact(int id)
         {
             var result = await _http.GetAsync($"api/contacts/{id}");
 
             if ((int)result.StatusCode == 404)
-                return new Contact();
+                throw new Exception("Contact not found");
 
-            var contact = await result.Content.ReadFromJsonAsync<Contact>();
+            return await result.Content.ReadFromJsonAsync<Contact>();
+        }
 
-            return contact;
+        public Task<Contact> AddNewContact(Contact newContact)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> EditContact(Contact contact)
+        {
+            var result = await _http.PostAsJsonAsync("api/contacts/edit", contact);
+
+            if ((int)result.StatusCode == 400)
+                return false;
+
+            return true;
         }
     }
 }

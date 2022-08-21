@@ -3,6 +3,25 @@
 
 <h3>Edit Contact</h3>
 
+<h5>@contact.FirstName @contact.LastName</h5>
+
+<EditForm Model="contact" OnSubmit="Submit">
+    <div>
+        <label for="firstname">First Name</label>
+        <InputText class="form-control" id="firstname" @bind-Value="contact.FirstName" />
+        
+        <label for="lastname">Last Name</label>
+        <InputText class="form-control" id="lastname" @bind-Value="contact.LastName" />
+
+        <label for="emailaddress">Email Address</label>
+        <InputText class="form-control" id="emailaddress" @bind-Value="contact.EmailAddress" />
+
+        <label for="phonenumber">Phone number</label>
+        <InputText class="form-control" id="phonenumber" @bind-Value="contact.PhoneNumber" />
+
+        <button type="submit">Edit</button>
+    </div>
+</EditForm>
 
 @code {
     [Parameter]
@@ -10,5 +29,13 @@
 
     Contact contact = new Contact();
 
+    protected override async Task OnInitializedAsync()
+    {
+        contact = await ContactClientService.GetSingleContact(id);
+    }
 
+    async Task Submit() 
+    {
+        await ContactClientService.EditContact(contact);
+    }
 }
