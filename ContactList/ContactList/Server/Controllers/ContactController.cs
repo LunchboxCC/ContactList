@@ -3,6 +3,7 @@
 namespace ContactList.Server.Controllers
 {
     [ApiController]
+    [Route("api/contacts")]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _service;
@@ -12,10 +13,10 @@ namespace ContactList.Server.Controllers
             _service = service;
         }
 
-        [HttpGet("contacts")]
-        public List<Contact> GetAllContacts()
+        [HttpGet("")]
+        public IActionResult GetAllContacts()
         {
-            return _service.GetAllContacts();
+            return Ok(_service.GetAllContacts());
         }
     }
 }
