@@ -6,7 +6,7 @@ namespace ContactList.Client.Services
     {
         Task<List<Contact>> GetAllContacts();
         Task<Contact> GetSingleContact(long id);
-        Task<Contact> AddNewContact(Contact newContact);
+        Task<bool> AddNewContact(Contact newContact);
         Task<bool> EditContact(Contact contact);
         Task DeleteSingleContact(long id);
     }

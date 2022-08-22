@@ -34,9 +34,14 @@ namespace ContactList.Client.Services
             return await result.Content.ReadFromJsonAsync<Contact>();
         }
 
-        public Task<Contact> AddNewContact(Contact newContact)
+        public async Task<bool> AddNewContact(Contact newContact)
         {
-            throw new NotImplementedException();
+            var result = await _http.PostAsJsonAsync("api/contacts/add", newContact);
+
+            if ((int)result.StatusCode == 400)
+                return false;
+
+            return true;
         }
 
         public async Task<bool> EditContact(Contact contact)

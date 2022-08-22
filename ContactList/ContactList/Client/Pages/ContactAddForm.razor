@@ -1,0 +1,31 @@
+﻿@page "/contacts/add"
+@inject IContactClientService ContactClientService
+
+<h3>Add contact</h3>
+
+<EditForm Model="contact" OnSubmit="Submit">
+    <div>
+        <label for="firstname">First Name</label>
+        <InputText class="form-control" id="firstname" @bind-Value="contact.FirstName" />
+
+        <label for="lastname">Last Name</label>
+        <InputText class="form-control" id="lastname" @bind-Value="contact.LastName" />
+
+        <label for="emailaddress">Email Address</label>
+        <InputText class="form-control" id="emailaddress" @bind-Value="contact.EmailAddress" />
+
+        <label for="phonenumber">Phone number</label>
+        <InputText class="form-control" id="phonenumber" @bind-Value="contact.PhoneNumber" />
+
+        <button type="submit">Add</button>
+    </div>
+</EditForm>
+
+@code {
+    Contact contact = new Contact();
+
+    async Task Submit() 
+    {
+        var result = await ContactClientService.AddNewContact(contact);
+    }
+}
