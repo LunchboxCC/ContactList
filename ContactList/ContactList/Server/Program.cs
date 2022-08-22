@@ -2,6 +2,8 @@ global using ContactList.Shared;
 using ContactList.Server.Database;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddRazorPages();
 
 ConfigureDatabase(builder);
 ConfigureServices(builder.Services);
+ConfigureSwagger(builder.Services);
 
 var app = builder.Build();
 
@@ -28,6 +31,9 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -60,4 +66,18 @@ static void CreateDatabase(WebApplication app)
         var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
         context.Database.Migrate();
     }
+}
+
+static void ConfigureSwagger(IServiceCollection services)
+{
+    //services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Contact list app",
+            Description = "Interview homework"
+        });
+    });
 }

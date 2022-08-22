@@ -14,13 +14,13 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult GetAllContacts()
+        public ActionResult<List<Contact>> GetAllContacts()
         {
             return Ok(_service.GetAllContacts());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetContactById(long id)
+        public ActionResult<Contact> GetContactById(long id)
         {
             var contact = _service.GetContactById(id);
             if (contact == null)
@@ -30,7 +30,7 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult PostNewContact(Contact contact)
+        public ActionResult<bool> PostNewContact(Contact contact)
         {
             var result = _service.AddNewContact(contact);
 
@@ -38,7 +38,7 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpPost("edit")]
-        public IActionResult PostEditContact(Contact contact)
+        public ActionResult<bool> PostEditContact(Contact contact)
         {
             var result = _service.EditContact(contact);
 
@@ -46,7 +46,7 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult DeleteSingleContact(long id)
+        public ActionResult<bool> DeleteSingleContact(long id)
         {
             var result = _service.DeleteContact(id);
 
