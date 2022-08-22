@@ -1,5 +1,6 @@
 ﻿@page "/contacts/add"
 @inject IContactClientService ContactClientService
+@inject NavigationManager NavigationManager
 
 <h3>Add contact</h3>
 
@@ -27,5 +28,6 @@
     async Task Submit() 
     {
         var result = await ContactClientService.AddNewContact(contact);
+        NavigationManager.NavigateTo("");
     }
 }
