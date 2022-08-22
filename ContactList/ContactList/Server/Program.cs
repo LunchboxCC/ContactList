@@ -1,9 +1,9 @@
 global using ContactList.Shared;
 using ContactList.Server.Database;
-using Microsoft.AspNetCore.ResponseCompression;
+using ContactList.Server.Validators;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +51,7 @@ app.Run();
 static void ConfigureServices(IServiceCollection services)
 {
     services.AddScoped<IContactService, ContactService>();
+    services.AddScoped<IValidator<Contact>, ContactValidator>();
 }
 
 static void ConfigureDatabase(WebApplicationBuilder builder)

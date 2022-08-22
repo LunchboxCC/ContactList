@@ -12,6 +12,8 @@ else
                 <th>Name</th>
                 <th>Email address</th>
                 <th>Phone number</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -25,14 +27,13 @@ else
                         <a href=@($"contacts/{contact.ContactId}")>Edit</a>
                     </td>
                     <td>
-                        <a @onclick="() => DeleteContact(contact.ContactId)">Delete</a>
+                        <a @onclick="() => DeleteContact(contact)">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
-
 
 @code {
     private static List<Contact> AllContacts = new List<Contact>();
@@ -42,8 +43,9 @@ else
         AllContacts = await Service.GetAllContacts();
     }
 
-    private async Task DeleteContact(long id) 
+    protected async Task DeleteContact(Contact contact) 
     {
-        await Service.DeleteSingleContact(id);
+        await Service.DeleteSingleContact(contact.ContactId);
+        AllContacts.Remove(contact);
     }
 }

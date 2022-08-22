@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContactList.Server.Controllers
 {
@@ -7,10 +8,12 @@ namespace ContactList.Server.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactService _service;
+        private readonly IValidator<Contact> _validator;
 
-        public ContactController(IContactService service)
+        public ContactController(IContactService service, IValidator<Contact> validator)
         {
             _service = service;
+            _validator = validator;
         }
 
         [HttpGet("")]
@@ -32,6 +35,9 @@ namespace ContactList.Server.Controllers
         [HttpPost("add")]
         public ActionResult<bool> PostNewContact(Contact contact)
         {
+            if (!_validator.Validate(contact).IsValid)
+                return BadRequest("Contact info invalid");
+
             var result = _service.AddNewContact(contact);
 
             return result == true ? Ok("Contact added") : BadRequest("Contact not added");
@@ -40,6 +46,9 @@ namespace ContactList.Server.Controllers
         [HttpPost("edit")]
         public ActionResult<bool> PostEditContact(Contact contact)
         {
+            if (!_validator.Validate(contact).IsValid)
+                return BadRequest("Contact info invalid");
+
             var result = _service.EditContact(contact);
 
             return result == true ? Ok("Contact edited") : BadRequest("Contact not edited");
