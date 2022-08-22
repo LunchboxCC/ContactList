@@ -24,7 +24,7 @@ namespace ContactList.Client.Services
             return result;
         }
 
-        public async Task<Contact> GetSingleContact(int id)
+        public async Task<Contact> GetSingleContact(long id)
         {
             var result = await _http.GetAsync($"api/contacts/{id}");
 
@@ -47,6 +47,11 @@ namespace ContactList.Client.Services
                 return false;
 
             return true;
+        }
+
+        public async Task DeleteSingleContact(long id)
+        {
+            var result = await _http.DeleteAsync($"api/contacts/delete?id={id}");
         }
     }
 }

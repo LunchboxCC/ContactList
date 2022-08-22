@@ -20,7 +20,7 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetContactById(int id)
+        public IActionResult GetContactById(long id)
         {
             var contact = _service.GetContactById(id);
             if (contact == null)
@@ -43,6 +43,14 @@ namespace ContactList.Server.Controllers
             var result = _service.EditContact(contact);
 
             return result == true ? Ok("Contact edited") : BadRequest("Contact not edited");
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteSingleContact(long id)
+        {
+            var result = _service.DeleteContact(id);
+
+            return result == true ? Ok("Contact deleted") : BadRequest("Contact not deleted");
         }
     }
 }
