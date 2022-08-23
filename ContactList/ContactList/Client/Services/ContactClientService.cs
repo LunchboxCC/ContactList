@@ -16,47 +16,55 @@ namespace ContactList.Client.Services
 
         public async Task<List<Contact>> GetAllContacts()
         {
-            var result = await _http.GetFromJsonAsync<List<Contact>>("api/contacts");
+            var result = await _http.GetFromJsonAsync<ServerResponse<List<Contact>>>("api/contacts");
+            if (result == null || result.Data == null)
+                throw new Exception("Error occured while fetching contacts");
 
-            if (result == null)
-                return new List<Contact>();
-
-            return result;
+            return result.Data;
         }
 
         public async Task<Contact> GetSingleContact(long id)
         {
-            var result = await _http.GetAsync($"api/contacts/{id}");
+            var result = await _http.GetFromJsonAsync<ServerResponse<Contact>>($"api/contacts/{id}");
 
-            if ((int)result.StatusCode == 404)
+            if (result == null || !result.Success)
                 throw new Exception("Contact not found");
 
-            return await result.Content.ReadFromJsonAsync<Contact>();
+            return result.Data;
         }
 
         public async Task<bool> AddNewContact(Contact newContact)
         {
+            //var result = await _http.PostAsJsonAsync("api/contacts/add", newContact);
             var result = await _http.PostAsJsonAsync("api/contacts/add", newContact);
 
-            if ((int)result.StatusCode == 400)
-                return false;
+            if (result == null)
+                throw new Exception("Contact adding failure");
 
-            return true;
+            var content = await result.Content.ReadFromJsonAsync<ServerResponse<bool>>();
+            return content.Success ? true : false;
         }
 
         public async Task<bool> EditContact(Contact contact)
         {
-            var result = await _http.PostAsJsonAsync("api/contacts/edit", contact);
+            var result = await _http.PutAsJsonAsync("api/contacts/edit", contact);
 
-            if ((int)result.StatusCode == 400)
-                return false;
+            if (result == null)
+                throw new Exception("Contact editing failure");
 
-            return true;
+            var content = await result.Content.ReadFromJsonAsync<ServerResponse<bool>>();
+            return content.Success ? true : false;
         }
 
-        public async Task DeleteSingleContact(long id)
+        public async Task<bool> DeleteSingleContact(long id)
         {
             var result = await _http.DeleteAsync($"api/contacts/delete?id={id}");
+
+            if (result == null)
+                throw new Exception("Contact deleting failure");
+
+            var content = await result.Content.ReadFromJsonAsync<ServerResponse<bool>>();
+            return content.Success ? true : false;
         }
     }
 }

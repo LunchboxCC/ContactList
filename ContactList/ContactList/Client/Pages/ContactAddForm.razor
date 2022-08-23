@@ -1,4 +1,4 @@
-﻿@page "/contacts/add"
+﻿@page "/contact/new"
 @inject IContactClientService ContactClientService
 @inject NavigationManager NavigationManager
 
@@ -21,13 +21,24 @@
         <button class="btn btn-primary" type="submit">Add</button>
     </div>
 </EditForm>
+<ErrorMessage ShowError="showError"
+              Message="errorMessage" />
 
 @code {
+    bool showError = false;
+    string errorMessage = string.Empty;
     Contact contact = new Contact();
 
     async Task Submit() 
     {
         var result = await ContactClientService.AddNewContact(contact);
-        NavigationManager.NavigateTo("");
+
+        if (result)
+            NavigationManager.NavigateTo("");
+        else
+        {
+            showError = true;
+            errorMessage = "Contact couldn't be added. Check your input values.";
+        }
     }
 }

@@ -17,49 +17,63 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult<List<Contact>> GetAllContacts()
+        public ActionResult<ServerResponse<List<Contact>>> GetAllContacts()
         {
-            return Ok(_service.GetAllContacts());
+            var contacts = _service.GetAllContacts();
+
+            if (contacts.Count == 0)
+                return NotFound(new ServerResponse<List<Contact>>(false, "No contacts could be retrieved", contacts));
+
+            return Ok(new ServerResponse<List<Contact>>(true, "", contacts));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Contact> GetContactById(long id)
+        public ActionResult<ServerResponse<Contact>> GetContactById(long id)
         {
             var contact = _service.GetContactById(id);
             if (contact == null)
-                return NotFound("No such contact found");
+                return NotFound(new ServerResponse<Contact>(false, "No contact found"));
 
-            return Ok(contact);
+            return Ok(new ServerResponse<Contact>(true, "", contact));
         }
 
         [HttpPost("add")]
-        public ActionResult<bool> PostNewContact(Contact contact)
+        public ActionResult<ServerResponse<bool>> PostNewContact(Contact contact)
         {
             if (!_validator.Validate(contact).IsValid)
-                return BadRequest("Contact info invalid");
+                return BadRequest(new ServerResponse<bool>(false, "Contact info invalid"));
 
             var result = _service.AddNewContact(contact);
 
-            return result == true ? Ok("Contact added") : BadRequest("Contact not added");
+            if (result)
+                return Ok(new ServerResponse<bool>(true, "Contact added"));
+            else
+                throw new Exception("Contact saving failure");
         }
 
-        [HttpPost("edit")]
-        public ActionResult<bool> PostEditContact(Contact contact)
+        [HttpPut("edit")]
+        public ActionResult<ServerResponse<bool>> PutEditContact(Contact contact)
         {
             if (!_validator.Validate(contact).IsValid)
-                return BadRequest("Contact info invalid");
+                return BadRequest(new ServerResponse<bool>(false, "Contact info invalid"));
 
             var result = _service.EditContact(contact);
 
-            return result == true ? Ok("Contact edited") : BadRequest("Contact not edited");
+            if (result)
+                return Ok(new ServerResponse<bool>(true, "Contact edited"));
+            else
+                throw new Exception("Contact editing failure");
         }
 
         [HttpDelete("delete")]
-        public ActionResult<bool> DeleteSingleContact(long id)
+        public ActionResult<ServerResponse<bool>> DeleteSingleContact(long id)
         {
             var result = _service.DeleteContact(id);
 
-            return result == true ? Ok("Contact deleted") : BadRequest("Contact not deleted");
+            if (result)
+                return Ok(new ServerResponse<bool>(true, "Contact deleted"));
+            else
+                throw new Exception("Contact deletion failure");
         }
     }
 }

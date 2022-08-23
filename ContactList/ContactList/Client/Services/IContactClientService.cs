@@ -8,6 +8,6 @@ namespace ContactList.Client.Services
         Task<Contact> GetSingleContact(long id);
         Task<bool> AddNewContact(Contact newContact);
         Task<bool> EditContact(Contact contact);
-        Task DeleteSingleContact(long id);
+        Task<bool> DeleteSingleContact(long id);
     }
 }

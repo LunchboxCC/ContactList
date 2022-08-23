@@ -1,4 +1,4 @@
-﻿@page "/contacts/{id:int}"
+﻿@page "/contact/{id:int}/edit"
 @inject IContactClientService ContactClientService
 @inject NavigationManager NavigationManager
 
@@ -23,11 +23,15 @@
         <button class="btn btn-primary" type="submit">Edit</button>
     </div>
 </EditForm>
+<ErrorMessage ShowError="showError"
+              Message="errorMessage" />
 
 @code {
     [Parameter]
     public int id { get; set; }
 
+    bool showError = false;
+    string errorMessage = string.Empty;
     Contact contact = new Contact();
 
     protected override async Task OnInitializedAsync()
@@ -37,7 +41,14 @@
 
     async Task Submit() 
     {
-        await ContactClientService.EditContact(contact);
-        NavigationManager.NavigateTo("");
+        var result = await ContactClientService.EditContact(contact);
+
+        if (result)
+            NavigationManager.NavigateTo("");
+        else
+        {
+            showError = true;
+            errorMessage = "Contact couldn't be edited. Check your input values.";
+        }
     }
 }

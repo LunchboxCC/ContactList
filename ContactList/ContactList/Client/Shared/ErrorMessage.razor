@@ -1,0 +1,13 @@
+﻿@if (ShowError) 
+{
+    <div class="">
+        @Message
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool ShowError { get; set; } = false;
+    [Parameter]
+    public string Message { get; set; } = string.Empty;
+}
