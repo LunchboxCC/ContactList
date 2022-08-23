@@ -2,7 +2,7 @@
 {
     List<Contact> GetAllContacts();
     Contact? GetContactById(long id);
-    bool AddNewContact(Contact contact);
+    bool AddNewContact(Contact newContact);
     bool EditContact(Contact contact);
     bool DeleteContact(long id);
 }

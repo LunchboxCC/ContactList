@@ -15,6 +15,7 @@ builder.Services.AddRazorPages();
 ConfigureDatabase(builder);
 ConfigureServices(builder.Services);
 ConfigureSwagger(builder.Services);
+ConfigureAutoMapper(builder.Services);
 
 var app = builder.Build();
 
@@ -81,4 +82,9 @@ static void ConfigureSwagger(IServiceCollection services)
             Description = "Interview homework"
         });
     });
+}
+
+static void ConfigureAutoMapper(IServiceCollection services)
+{
+    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 }

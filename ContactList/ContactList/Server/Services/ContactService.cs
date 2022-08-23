@@ -20,9 +20,9 @@ public class ContactService : IContactService
         return _context.Contacts.FirstOrDefault(c => c.ContactId == id);
     }
 
-    public bool AddNewContact(Contact contact)
+    public bool AddNewContact(Contact newContact)
     {
-        _context.Contacts.Add(contact);
+        _context.Contacts.Add(newContact);
         var result = _context.SaveChanges();
 
         return result == 1 ? true : false;

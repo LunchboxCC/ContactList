@@ -6,7 +6,7 @@ namespace ContactList.Client.Services.Interfaces
     {
         Task<List<Contact>> GetAllContacts();
         Task<Contact> GetSingleContact(long id);
-        Task<BoolMessage> AddNewContact(Contact newContact);
+        Task<BoolMessage> AddNewContact(ContactFormDTO newContact);
         Task<BoolMessage> EditContact(Contact contact);
         Task<BoolMessage> DeleteSingleContact(long id);
     }

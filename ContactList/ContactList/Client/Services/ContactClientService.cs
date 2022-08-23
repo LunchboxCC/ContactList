@@ -33,7 +33,7 @@ namespace ContactList.Client.Services
             return result.Data;
         }
 
-        public async Task<BoolMessage> AddNewContact(Contact newContact)
+        public async Task<BoolMessage> AddNewContact(ContactFormDTO newContact)
         {
             var result = await _http.PostAsJsonAsync("api/contacts/add", newContact);
 

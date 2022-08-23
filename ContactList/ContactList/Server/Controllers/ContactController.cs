@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContactList.Server.Controllers
@@ -9,11 +10,13 @@ namespace ContactList.Server.Controllers
     {
         private readonly IContactService _service;
         private readonly IValidator<Contact> _validator;
+        private readonly IMapper _mapper;
 
-        public ContactController(IContactService service, IValidator<Contact> validator)
+        public ContactController(IContactService service, IValidator<Contact> validator, IMapper mapper)
         {
             _service = service;
             _validator = validator;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
@@ -38,8 +41,10 @@ namespace ContactList.Server.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult<ServerResponse<bool>> PostNewContact(Contact contact)
+        public ActionResult<ServerResponse<bool>> PostNewContact(ContactFormDTO newContact)
         {
+            var contact = _mapper.Map<Contact>(newContact);
+
             if (!_validator.Validate(contact).IsValid)
                 return BadRequest(new ServerResponse<bool>(false, "Contact info invalid"));
 
