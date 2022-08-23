@@ -23,8 +23,8 @@
         <button class="btn btn-primary" type="submit">Edit</button>
     </div>
 </EditForm>
-<ErrorMessage ShowError="showError"
-              Message="errorMessage" />
+<ErrorMessage ShowError="@showError"
+              Message="@errorMessage" />
 
 @code {
     [Parameter]
@@ -43,12 +43,12 @@
     {
         var result = await ContactClientService.EditContact(contact);
 
-        if (result)
+        if (result.Success)
             NavigationManager.NavigateTo("");
         else
         {
             showError = true;
-            errorMessage = "Contact couldn't be edited. Check your input values.";
+            errorMessage = result.Message;
         }
     }
 }

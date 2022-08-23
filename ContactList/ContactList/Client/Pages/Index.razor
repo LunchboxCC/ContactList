@@ -1,7 +1,69 @@
 ﻿@page "/"
+@inject IContactClientService Service
 
 <PageTitle>Contact list</PageTitle>
 
 <h1>Contacts</h1>
 
-<Contacts />
+@if (AllContacts.Count == 0)
+{
+    <p>No contacts to show here</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email address</th>
+                <th>Phone number</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in AllContacts)
+            {
+                <tr>
+                    <td>@contact.FirstName @contact.LastName</td>
+                    <td>@contact.EmailAddress</td>
+                    <td>@contact.PhoneNumber</td>
+                    <td>
+                        <a href=@($"contact/{contact.ContactId}/edit")>Edit</a>
+                    </td>
+                    <td>
+                        <a href="" @onclick="() => DeleteContact(contact)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <ErrorMessage ShowError="@showError"
+              Message="@errorMessage" />
+}
+
+@code {
+    private static List<Contact> AllContacts = new List<Contact>();
+    bool showError = false;
+    string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllContacts = await Service.GetAllContacts();
+    }
+
+    protected async Task DeleteContact(Contact contact)
+    {
+        var result = await Service.DeleteSingleContact(contact.ContactId);
+
+        if (result.Success)
+        {
+            AllContacts.Remove(contact);
+        }
+        else
+        {
+            showError = false;
+            errorMessage = result.Message;
+        }
+    }
+}

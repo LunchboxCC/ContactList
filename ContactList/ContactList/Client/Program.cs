@@ -1,5 +1,6 @@
 using ContactList.Client;
 using ContactList.Client.Services;
+using ContactList.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

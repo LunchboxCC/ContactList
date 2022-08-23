@@ -1,5 +1,5 @@
-﻿using ContactList.Shared;
-using Newtonsoft.Json;
+﻿using ContactList.Client.Services.Interfaces;
+using ContactList.Shared;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 
@@ -17,7 +17,7 @@ namespace ContactList.Client.Services
         public async Task<List<Contact>> GetAllContacts()
         {
             var result = await _http.GetFromJsonAsync<ServerResponse<List<Contact>>>("api/contacts");
-            if (result == null || result.Data == null)
+            if (result == null)
                 throw new Exception("Error occured while fetching contacts");
 
             return result.Data;
@@ -33,19 +33,18 @@ namespace ContactList.Client.Services
             return result.Data;
         }
 
-        public async Task<bool> AddNewContact(Contact newContact)
+        public async Task<BoolMessage> AddNewContact(Contact newContact)
         {
-            //var result = await _http.PostAsJsonAsync("api/contacts/add", newContact);
             var result = await _http.PostAsJsonAsync("api/contacts/add", newContact);
 
             if (result == null)
                 throw new Exception("Contact adding failure");
 
             var content = await result.Content.ReadFromJsonAsync<ServerResponse<bool>>();
-            return content.Success ? true : false;
+            return content.Success ? new BoolMessage(true) : new BoolMessage(false, content.Message);
         }
 
-        public async Task<bool> EditContact(Contact contact)
+        public async Task<BoolMessage> EditContact(Contact contact)
         {
             var result = await _http.PutAsJsonAsync("api/contacts/edit", contact);
 
@@ -53,10 +52,10 @@ namespace ContactList.Client.Services
                 throw new Exception("Contact editing failure");
 
             var content = await result.Content.ReadFromJsonAsync<ServerResponse<bool>>();
-            return content.Success ? true : false;
+            return content.Success ? new BoolMessage(true) : new BoolMessage(false, content.Message);
         }
 
-        public async Task<bool> DeleteSingleContact(long id)
+        public async Task<BoolMessage> DeleteSingleContact(long id)
         {
             var result = await _http.DeleteAsync($"api/contacts/delete?id={id}");
 
@@ -64,7 +63,7 @@ namespace ContactList.Client.Services
                 throw new Exception("Contact deleting failure");
 
             var content = await result.Content.ReadFromJsonAsync<ServerResponse<bool>>();
-            return content.Success ? true : false;
+            return content.Success ? new BoolMessage(true) : new BoolMessage(false, content.Message);
         }
     }
 }

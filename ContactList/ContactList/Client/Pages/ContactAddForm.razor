@@ -21,8 +21,8 @@
         <button class="btn btn-primary" type="submit">Add</button>
     </div>
 </EditForm>
-<ErrorMessage ShowError="showError"
-              Message="errorMessage" />
+<ErrorMessage ShowError="@showError"
+              Message="@errorMessage" />
 
 @code {
     bool showError = false;
@@ -33,12 +33,12 @@
     {
         var result = await ContactClientService.AddNewContact(contact);
 
-        if (result)
+        if (result.Success)
             NavigationManager.NavigateTo("");
         else
         {
             showError = true;
-            errorMessage = "Contact couldn't be added. Check your input values.";
+            errorMessage = result.Message;
         }
     }
 }
