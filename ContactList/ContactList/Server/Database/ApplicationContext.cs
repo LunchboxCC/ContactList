@@ -17,9 +17,7 @@ namespace ContactList.Server.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #if DEBUG
-                DataSeeder.SeedDatabase(modelBuilder);
-            #endif
+            DataSeeder.SeedDatabase(modelBuilder);
         }
     }
 }
