@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContactList.Server.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220820213330_init")]
+    [Migration("20220824183603_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace ContactList.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ContactList.Shared.Models.Contact", b =>
+            modelBuilder.Entity("ContactList.Shared.Contact", b =>
                 {
                     b.Property<long>("ContactId")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,23 @@ namespace ContactList.Server.Migrations
                             EmailAddress = "agrias.oaks@gmail.com",
                             FirstName = "Agrias",
                             LastName = "Oaks",
-                            PhoneNumber = "+44 128 478 364"
+                            PhoneNumber = "+44 128 478 888"
+                        },
+                        new
+                        {
+                            ContactId = 3L,
+                            EmailAddress = "",
+                            FirstName = "Delita",
+                            LastName = "Heiral",
+                            PhoneNumber = "+421 784 364 144"
+                        },
+                        new
+                        {
+                            ContactId = 4L,
+                            EmailAddress = "o-d@hotmail.com",
+                            FirstName = "Olan",
+                            LastName = "Durai",
+                            PhoneNumber = "+420 608 058 058"
                         });
                 });
 #pragma warning restore 612, 618

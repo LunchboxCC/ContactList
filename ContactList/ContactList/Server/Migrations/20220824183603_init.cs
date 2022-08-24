@@ -27,12 +27,13 @@ namespace ContactList.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Contacts",
                 columns: new[] { "ContactId", "EmailAddress", "FirstName", "LastName", "PhoneNumber" },
-                values: new object[] { 1L, "beoulve.iv@gmail.com", "Ramza", "Beoulve", "" });
-
-            migrationBuilder.InsertData(
-                table: "Contacts",
-                columns: new[] { "ContactId", "EmailAddress", "FirstName", "LastName", "PhoneNumber" },
-                values: new object[] { 2L, "agrias.oaks@gmail.com", "Agrias", "Oaks", "+44 128 478 364" });
+                values: new object[,]
+                {
+                    { 1L, "beoulve.iv@gmail.com", "Ramza", "Beoulve", "" },
+                    { 2L, "agrias.oaks@gmail.com", "Agrias", "Oaks", "+44 128 478 888" },
+                    { 3L, "", "Delita", "Heiral", "+421 784 364 144" },
+                    { 4L, "o-d@hotmail.com", "Olan", "Durai", "+420 608 058 058" }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

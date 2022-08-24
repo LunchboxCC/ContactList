@@ -16,13 +16,13 @@ ConfigureDatabase(builder);
 ConfigureServices(builder.Services);
 ConfigureSwagger(builder.Services);
 ConfigureAutoMapper(builder.Services);
-CreateDatabaseBuild(builder);
+//CreateDatabaseBuild(builder);
 
 
 
 var app = builder.Build();
 
-//CreateDatabase(app);
+CreateDatabase(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -69,7 +69,10 @@ static void CreateDatabase(WebApplication app)
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-        context.Database.Migrate();
+        if (!context.Database.CanConnect())
+        {
+            context.Database.Migrate();
+        }
     }
 }
 

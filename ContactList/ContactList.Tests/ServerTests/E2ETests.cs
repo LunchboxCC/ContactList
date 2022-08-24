@@ -24,7 +24,7 @@ namespace ContactList.Tests.ServerTests
             {
                 Success = true,
                 Message = "Contacts retrieved successfully",
-                Data = DataProvider.GetListOfContacts()
+                Data = DataProvider.GetListOfSeededContacts()
             };
 
             var response = await _factory.CreateClient().GetAsync($"/api/contacts");

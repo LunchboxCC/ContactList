@@ -18,7 +18,7 @@ namespace ContactList.Tests.ServerTests
         [Fact]
         public void GetAllContactsGetsSeededContacts()
         {
-            var expectedContacts = DataProvider.GetListOfContacts();
+            var expectedContacts = DataProvider.GetListOfSeededContacts();
 
             var actualContacts = _service.GetAllContacts();
 
