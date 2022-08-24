@@ -15,9 +15,6 @@ namespace ContactList.Tests.Helpers
 
             context.Database.EnsureCreated();
 
-            //context.Contacts.AddRange(DataProvider.GetListOfContacts());
-            //context.SaveChanges();
-
             return context;
         }
     }
