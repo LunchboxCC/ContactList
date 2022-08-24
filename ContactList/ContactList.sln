@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactList.Client", "Conta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactList.Shared", "ContactList\Shared\ContactList.Shared.csproj", "{B8BB72D7-F415-4188-AA54-79699EC809D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactList.Tests", "ContactList.Tests\ContactList.Tests.csproj", "{BA02AB72-E8E4-45D2-B57A-9B3DF9D9D150}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B8BB72D7-F415-4188-AA54-79699EC809D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8BB72D7-F415-4188-AA54-79699EC809D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8BB72D7-F415-4188-AA54-79699EC809D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA02AB72-E8E4-45D2-B57A-9B3DF9D9D150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA02AB72-E8E4-45D2-B57A-9B3DF9D9D150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA02AB72-E8E4-45D2-B57A-9B3DF9D9D150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA02AB72-E8E4-45D2-B57A-9B3DF9D9D150}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

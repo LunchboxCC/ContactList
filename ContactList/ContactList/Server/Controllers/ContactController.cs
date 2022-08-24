@@ -27,7 +27,7 @@ namespace ContactList.Server.Controllers
             if (contacts.Count == 0)
                 return NotFound(new ServerResponse<List<Contact>>(false, "No contacts could be retrieved", contacts));
 
-            return Ok(new ServerResponse<List<Contact>>(true, "", contacts));
+            return Ok(new ServerResponse<List<Contact>>(true, "Contacts retrieved successfully", contacts));
         }
 
         [HttpGet("{id}")]

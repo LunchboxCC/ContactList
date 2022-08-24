@@ -19,7 +19,7 @@ ConfigureAutoMapper(builder.Services);
 
 var app = builder.Build();
 
-CreateDatabase(app);
+//CreateDatabase(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -72,7 +72,7 @@ static void CreateDatabase(WebApplication app)
 
 static void ConfigureSwagger(IServiceCollection services)
 {
-    //services.AddEndpointsApiExplorer();
+    services.AddEndpointsApiExplorer();
     services.AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new OpenApiInfo
@@ -86,5 +86,7 @@ static void ConfigureSwagger(IServiceCollection services)
 
 static void ConfigureAutoMapper(IServiceCollection services)
 {
-    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    services.AddAutoMapper(typeof(Program).Assembly);
 }
+
+public partial class Program { }
