@@ -16,9 +16,6 @@ ConfigureDatabase(builder);
 ConfigureServices(builder.Services);
 ConfigureSwagger(builder.Services);
 ConfigureAutoMapper(builder.Services);
-//CreateDatabaseBuild(builder);
-
-
 
 var app = builder.Build();
 
@@ -73,16 +70,6 @@ static void CreateDatabase(WebApplication app)
         {
             context.Database.Migrate();
         }
-    }
-}
-
-static void CreateDatabaseBuild(WebApplicationBuilder builder)
-{
-    using (var sp = builder.Services.BuildServiceProvider())
-    {
-        var scope = sp.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-        context.Database.Migrate();
     }
 }
 
