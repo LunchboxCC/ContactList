@@ -1,4 +1,5 @@
 global using ContactList.Shared;
+global using ContactList.Shared.Models;
 using ContactList.Server.Database;
 using ContactList.Server.Validators;
 using FluentValidation;

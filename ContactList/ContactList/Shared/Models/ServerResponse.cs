@@ -1,4 +1,4 @@
-﻿namespace ContactList.Shared
+﻿namespace ContactList.Shared.Models
 {
     public class ServerResponse<T>
     {

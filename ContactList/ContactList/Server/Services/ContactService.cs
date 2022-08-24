@@ -1,5 +1,4 @@
 ﻿using ContactList.Server.Database;
-using ContactList.Shared;
 
 public class ContactService : IContactService
 {

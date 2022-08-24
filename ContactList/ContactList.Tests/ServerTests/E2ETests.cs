@@ -1,4 +1,4 @@
-﻿using ContactList.Shared;
+﻿using ContactList.Shared.Models;
 using ContactList.Tests.Helpers;
 using Newtonsoft.Json;
 using System.Collections.Generic;

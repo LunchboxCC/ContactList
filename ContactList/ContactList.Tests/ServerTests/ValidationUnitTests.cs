@@ -1,5 +1,4 @@
 ﻿using ContactList.Server.Validators;
-using ContactList.Shared;
 using FluentValidation.TestHelper;
 
 namespace ContactList.Tests.ServerTests

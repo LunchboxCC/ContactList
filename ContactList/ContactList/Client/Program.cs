@@ -1,3 +1,4 @@
+global using ContactList.Shared.Models;
 using ContactList.Client;
 using ContactList.Client.Services;
 using ContactList.Client.Services.Interfaces;

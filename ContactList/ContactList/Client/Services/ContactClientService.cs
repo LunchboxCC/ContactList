@@ -1,5 +1,4 @@
 ﻿using ContactList.Client.Services.Interfaces;
-using ContactList.Shared;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 

@@ -1,6 +1,4 @@
-﻿using ContactList.Shared;
-
-namespace ContactList.Client.Services.Interfaces
+﻿namespace ContactList.Client.Services.Interfaces
 {
     public interface IContactClientService
     {
